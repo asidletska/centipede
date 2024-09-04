@@ -13,11 +13,8 @@ public class Centipede : MonoBehaviour
     public float speed = 20f;
     public LayerMask collisionMask;
     public BoxCollider2D homeArea;
-    private void Start()
-    {
-        Respawn();
-    }
-    private void Respawn()
+
+    public void Respawn()
     {
         foreach( CentipedeSegments segment in segments ) 
         { 
@@ -49,14 +46,16 @@ public class Centipede : MonoBehaviour
         {
             segment.ahead.behind = null;
         }
+
         if (segment.behind != null)
         {
             segment.behind.ahead = null;
+            segment.behind.spriteRenderer.sprite = headSprite;
             segment.behind.UpdateHeadSegment();
         }
+
         segments.Remove(segment);
         Destroy(segment.gameObject);
-
     }
     private CentipedeSegments GetSegmentAt ( int index)
     {

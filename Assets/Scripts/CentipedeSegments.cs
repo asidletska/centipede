@@ -82,8 +82,9 @@ public class CentipedeSegments : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Dart"))
+        if (collision.collider.enabled && collision.gameObject.layer == LayerMask.NameToLayer("Dart"))
         {
+            collision.collider.enabled = false;
             centipede.Remove(this);
         }
     }

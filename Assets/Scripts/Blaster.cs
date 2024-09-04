@@ -4,6 +4,7 @@ public class Blaster : MonoBehaviour
 {
     private new Rigidbody2D rigidbody;
     private Vector2 direction;
+    private Vector2 spawnPosition;
     public float speed = 20f;
 
     private Camera mainCamera;
@@ -16,6 +17,7 @@ public class Blaster : MonoBehaviour
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
+        spawnPosition = transform.position;
     }
     private void Start()
     {
@@ -43,5 +45,12 @@ public class Blaster : MonoBehaviour
         Vector2 position = rigidbody.position;
         position += direction.normalized * speed * Time.fixedDeltaTime;
         rigidbody.MovePosition(position);
+    }
+
+    public void Respawn()
+    {
+        transform.position = spawnPosition;
+        gameObject.SetActive(true);
+
     }
 }
