@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class CentipedeSegments : MonoBehaviour
 {
-    public SpriteRenderer spriteRenderer {  get; private set; }
+    public SpriteRenderer spriteRenderer { get; private set; }
     public Centipede centipede { get; set; }
-    public CentipedeSegments ahead {  get; set; }
+    public CentipedeSegments ahead { get; set; }
     public CentipedeSegments behind { get; set; }
     public bool isHead => ahead == null;
 
@@ -34,7 +34,7 @@ public class CentipedeSegments : MonoBehaviour
         transform.rotation = Quaternion.AngleAxis(angle * Mathf.Rad2Deg, Vector3.forward);
     }
 
-    private void UpdateHeadSegment()
+    public void UpdateHeadSegment()
     {
         Vector2 gridPosition = GridPosition(transform.position);
 
@@ -78,5 +78,13 @@ public class CentipedeSegments : MonoBehaviour
         position.x = Mathf.Round(position.x);
         position.y = Mathf.Round(position.y);
         return position;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Dart"))
+        {
+            centipede.Remove(this);
+        }
     }
 }
