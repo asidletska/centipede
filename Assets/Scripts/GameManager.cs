@@ -37,6 +37,13 @@ public class GameManager : MonoBehaviour
 
         NewGame();
     }
+    private void Update()
+    {
+        if (lives <= 0 && Input.anyKeyDown)
+        {
+            NewGame();
+        }
+    }
 
     private void NewGame()
     {
@@ -51,11 +58,20 @@ public class GameManager : MonoBehaviour
 
     private void GameOver()
     {
+        blaster.gameObject.SetActive(false);
 
     }
-    private void ResetRound()
+    public void ResetRound()
     {
+        lives--;
 
+        if (lives <= 0)
+        {
+            GameOver();
+            return;
+        }
+        centipede.Respawn();
+        blaster.Respawn();
     }
     private void NextLevel()
     {

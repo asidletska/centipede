@@ -24,6 +24,12 @@ public class Mushroom : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public void Heal()
+    {
+        health = states.Length;
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Dart"))
