@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -9,6 +10,10 @@ public class GameManager : MonoBehaviour
 
     private int score;
     private int lives;
+
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI livesText;
+    public GameObject gameOver;
     private void Awake()
     {
         if (Instance == null)
@@ -47,23 +52,25 @@ public class GameManager : MonoBehaviour
 
     private void NewGame()
     {
-        score = 0;
-        lives = 3;
+        SetScore(0);
+        SetLives(3);
 
         centipede.Respawn();
         blaster.Respawn();
         mushroomField.Clear();
         mushroomField.Generate();
+        gameOver.SetActive(false);
     }
 
     private void GameOver()
     {
         blaster.gameObject.SetActive(false);
+        gameOver.SetActive(true);
 
     }
     public void ResetRound()
     {
-        lives--;
+        SetLives(lives - 1);
 
         if (lives <= 0)
         {
@@ -72,9 +79,28 @@ public class GameManager : MonoBehaviour
         }
         centipede.Respawn();
         blaster.Respawn();
+        mushroomField.Heal();
     }
-    private void NextLevel()
+    public void NextLevel()
     {
+        centipede.speed *= 1.1f;
+        centipede.Respawn();
 
+    }
+    public void IncreaseScore(int amount)
+    {
+         SetScore(score + amount);
+
+    }
+    private void SetScore(int value)
+    {
+        score = value;
+        scoreText.text = score.ToString();
+    }
+
+    private void SetLives(int value)
+    {
+        lives = value;
+        livesText.text = lives.ToString();
     }
 }
