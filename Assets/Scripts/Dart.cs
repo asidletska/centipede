@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Dart : MonoBehaviour
 {
     private new Rigidbody2D rigidbody;
     private new Collider2D collider;
     private Transform parent;
-
+    public UnityEvent shot;
     public float speed = 50f;
 
     private void Awake()
@@ -20,6 +21,7 @@ public class Dart : MonoBehaviour
     {
         if (rigidbody.isKinematic && Input.GetButton("Fire1"))
         {
+            shot.Invoke();
             transform.SetParent(null);
             rigidbody.bodyType = RigidbodyType2D.Dynamic;
             collider.enabled = true;

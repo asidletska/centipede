@@ -23,7 +23,7 @@ public class Mushroom : MonoBehaviour
         else
         {
             Destroy(gameObject);
-            GameManager.Instance.IncreaseScore(points);
+            ScoreManager.instance.AddScore(points);
         }
     }
 

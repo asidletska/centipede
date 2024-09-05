@@ -41,7 +41,7 @@ public class Centipede : MonoBehaviour
     }
     public void Remove(CentipedeSegments segment)
     {
-        GameManager.Instance.IncreaseScore(segment.isHead ? pointsBody : pointsHead);
+        ScoreManager.instance.AddScore(segment.isHead ? pointsBody : pointsHead);
 
         Vector3 position = GridPosition(segment.transform.position);
         Instantiate(mushroomPrefab, position, Quaternion.identity);
