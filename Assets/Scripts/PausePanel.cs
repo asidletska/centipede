@@ -20,5 +20,6 @@ public class PausePanel : MonoBehaviour
     public void OnMenuHandler()
     {
         SceneManager.LoadScene(0);
+        Time.timeScale = 1f;
     }
 }
